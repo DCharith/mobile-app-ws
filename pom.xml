@@ -77,4 +77,16 @@
 		</plugins>
 	</build>
 
+	<!-- Support for Nexus release and snapshot repositories -->
+	<distributionManagement>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<url>http://165.232.178.38:8081/repository/maven-snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>nexus-releases</id>
+			<url>http://165.232.178.38:8081/repository/maven-releases</url>
+		</repository>
+	</distributionManagement>
+
 </project>
