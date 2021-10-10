@@ -89,4 +89,12 @@
 		</repository>
 	</distributionManagement>
 
+	<repositories>
+		<repository>
+			<id>maven-public</id>
+			<url>http://165.232.178.38:8081/repository/maven-public/</url>
+		</repository>
+	</repositories>
+
+
 </project>
