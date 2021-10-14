@@ -31,3 +31,16 @@ build/
 
 ### VS Code ###
 .vscode/
+
+bin/
+mvnw
+mvnw.cmd
+target/classes/
+target/generated-sources
+target/test-classes
+target/m2e-wtp/
+target/maven-archiver/
+target/maven-status/
+target/mobile-app-ws-0.0.1-SNAPSHOT/
+target/mobile-app-ws.war
+target/mobile-app-ws-0.0.2-SNAPSHOT.war.original
