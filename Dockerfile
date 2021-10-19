@@ -4,11 +4,11 @@ ENV DB_HOST=db \
      DB_USERNAME=username \
      DB_PASSWORD=password
  
-RUN mkdir /usr/local/mobile-app-ws/
+RUN mkdir -p /usr/local/mobile-app-ws
  
-COPY ./src /usr/local/mobile-app-ws/
+COPY ./src /usr/local/mobile-app-ws/src
 
-COPY ./pom.xml /usr/local/mobile-app-ws/
+COPY ./pom.xml /usr/local/mobile-app-ws/pom.xml
  
 WORKDIR /usr/local/mobile-app-ws/
  
