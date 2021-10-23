@@ -1,3 +1,4 @@
+def gv
 pipeline {
     agent any
     tools{
@@ -5,11 +6,18 @@ pipeline {
     }
 
     stages {
+        stage('init'){
+            steps{
+                script{
+                    gv = load "script.groovy"
+                }
+            }
+
+        }
         stage('Build and package war file') {
             steps {
                 script{
-                    echo "Packaging war file..."
-                    sh "mvn -Dmaven.test.skip=true clean package"
+                    gv.buildWar()
                 }
                 
             }
@@ -17,23 +25,18 @@ pipeline {
         stage('Build Docker image'){
             steps{
                 script{
-                    echo "Building Docker image..."
-                    withCredentials([usernamePassword(credentialsId: "dockerhub-credentials", usernameVariable: "username", passwordVariable: "password")]){
-                        sh "docker build -t dcharith/mobile-app-ws:2.0 ."
-                        sh "echo $password | docker login -u $username --password-stdin"
-                        sh "docker push dcharith/mobile-app-ws:2.0"
-                    }
+                    gv.buildDockerImage()                
                 }
             }
         }
         stage('test'){
             steps{
-                echo 'This is the test step!'
+                gv.testApp()
             }
         }
         stage('deploy'){
             steps{
-                echo 'This is the deploy step!'
+                gv.deployApp()
             }
         }
     }
