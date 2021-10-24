@@ -19,3 +19,5 @@ def testApp(){
 def deployApp(){
     echo 'This is the deploy step!'
 }
+
+return this

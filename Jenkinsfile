@@ -18,8 +18,7 @@ pipeline {
             steps {
                 script{
                     gv.buildWar()
-                }
-                
+                }  
             }
         }
         stage('Build Docker image'){
@@ -31,12 +30,17 @@ pipeline {
         }
         stage('test'){
             steps{
-                gv.testApp()
+                script{
+                    gv.testApp()    
+                }
+                
             }
         }
         stage('deploy'){
             steps{
-                gv.deployApp()
+                script{
+                    gv.testApp()    
+                }
             }
         }
     }
