@@ -1,8 +1,10 @@
+@Library("jenkins-shared-library")
+
 def gv
 pipeline {
     agent any
     tools{
-        maven "maven 3.8"
+        maven "maven-3.8"
     }
 
     stages {
@@ -17,14 +19,14 @@ pipeline {
         stage('Build and package war file') {
             steps {
                 script{
-                    gv.buildWar()
+                    buildWar()
                 }  
             }
         }
         stage('Build Docker image'){
             steps{
                 script{
-                    gv.buildDockerImage()                
+                    buildDockerImage()                
                 }
             }
         }
