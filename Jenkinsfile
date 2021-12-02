@@ -17,7 +17,7 @@ pipeline {
         stage('Build Docker image'){
             steps{
                 script{
-                    buildDockerImage()                
+                    buildDockerImage("dcharith/mobile-app-ws:2.0")                
                 }
             }
         }
