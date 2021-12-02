@@ -7,14 +7,6 @@ pipeline {
     }
 
     stages {
-        stage('init'){
-            steps{
-                script{
-                    gv = load "script.groovy"
-                }
-            }
-
-        }
         stage('Build and package war file') {
             steps {
                 script{
@@ -29,18 +21,18 @@ pipeline {
                 }
             }
         }
-        stage('test'){
+        stage('Test'){
             steps{
                 script{
-                    gv.testApp()    
+                    echo "Testing..." 
                 }
                 
             }
         }
-        stage('deploy'){
+        stage('Deploy'){
             steps{
                 script{
-                    gv.testApp()    
+                    echo "Deploying..."   
                 }
             }
         }
