@@ -15,7 +15,7 @@ WORKDIR /usr/local/mobile-app-ws/
 RUN mvn -Dmaven.test.skip=true clean package
  
 
-FROM tomcat
+FROM tomcat:8
  
 COPY --from=build /usr/local/mobile-app-ws/target/mobile-app-ws-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/mobile-app-ws.war
  
