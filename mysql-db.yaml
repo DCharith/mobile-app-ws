@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mobile-app-ws-secret
+              key: MYSQL_ROOT_PASSWORD
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: mobile-app-ws-configmap
+              key: MYSQL_DATABASE
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mobile-app-ws-secret
+              key: DB_USERNAME
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mobile-app-ws-secret
+              key: DB_PASSWORD
+
+---
+
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: mysql-service
+spec:
+  selector:
+    app: mysql
+  ports:
+  - protocol: TCP
+    targetPort: 3306
+    port: 3306

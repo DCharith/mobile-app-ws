@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: mobile-app-ws
+  labels:
+    app: mobile-app-ws
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mobile-app-ws
+  template:
+    metadata:
+      labels:
+        app: mobile-app-ws
+    spec:
+      containers:
+      - name: mobile-app-ws
+        image: dcharith/mobile-app-ws:3.0
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: mobile-app-ws-configmap
+              key: DB_HOST
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mobile-app-ws-secret
+              key: DB_USERNAME
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mobile-app-ws-secret
+              key: DB_PASSWORD
+
+---
+
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: mobile-app-ws-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: mobile-app-ws
+  ports:
+  - protocol: TCP
+    targetPort: 8080
+    port: 80
+    nodePort: 30080
